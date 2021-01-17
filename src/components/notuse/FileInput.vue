@@ -21,12 +21,9 @@ import axios from 'axios'
 export default {
   name: 'FileInput',
   props: {
-    destination: {
-      type: String
-    },
     base: {
       type: String,
-      default: 'レイアウト2'
+      default: ''
     }
   },
   data () {
@@ -38,7 +35,7 @@ export default {
   methods: {
     submitFile () {
       const formData = new FormData()
-      const url = `http://127.0.0.1:8000/api/${this.destination}/`
+      const url = 'http://127.0.0.1:8000/api/align/'
 
       formData.append('image', this.file)
       formData.append('base', this.base)

@@ -32,7 +32,6 @@ export default {
     axios
       .get('http://127.0.0.1:8000/api/processed_image/')
       .then(function (response) {
-        console.log(response.data)
         this.processedImages = response.data
       }.bind(this))
       .catch(function (error) {

@@ -85,6 +85,7 @@ export default {
       this.dragOffsetX = this.dragOffsetY = null
       this.opacity = 0
       // Remove Event
+      this.$emit('pt', this.shape.x, this.shape.y, this.shape.w, this.shape.h)
       this.$refs.svg.removeEventListener('mousemove', this.move)
     },
     // For move(dragging) Event
@@ -126,6 +127,7 @@ export default {
       this.circleId = null
       this.dragOffsetX = this.dragOffsetY = this.dragoffsetW = this.dragoffsetH = null
       this.opacity = 0
+      this.$emit('pt', this.shape.x, this.shape.y, this.shape.w, this.shape.h)
       this.$refs.svg.removeEventListener('mousemove', this.resize)
     },
     resize ({ offsetX, offsetY }) {
@@ -158,7 +160,6 @@ export default {
           case 2:
             this.shape.y = offsetY
             this.shape.h = this.dragoffsetH + (this.dragOffsetY - offsetY)
-
             break
           case 3:
           case 4:

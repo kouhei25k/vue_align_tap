@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <FileInput
-        destination="align"
+      <DropInput
         :base="useBase"
       />
       <SeletOptions
@@ -16,13 +15,13 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-import FileInput from '@/components/FileInput.vue'
+import DropInput from '@/components/DropInput.vue'
 import SeletOptions from '@/components/SeletOptions.vue'
 
 export default {
   name: 'Home',
   components: {
-    FileInput,
+    DropInput,
     SeletOptions
   },
   data () {
@@ -35,7 +34,6 @@ export default {
     axios
       .get('http://127.0.0.1:8000/api/base_image/')
       .then(function (response) {
-        console.log(response.data)
         this.baseImagesName = response.data.map(value => value.name)
       }.bind(this))
       .catch(function (error) {
@@ -44,7 +42,6 @@ export default {
   },
   methods: {
     selectedBase (value) {
-      console.log(value)
       this.useBase = value
     }
   }

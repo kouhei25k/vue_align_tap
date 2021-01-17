@@ -2,19 +2,19 @@
   <div>
     <p>base_image</p>
     <div>
-      <BaseInput />
+      <!-- <BaseInput /> -->
+      <DropBaseInput />
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-// import DrawSquareInSVG from '@/components/DrawSquareInSVG.vue'
-import BaseInput from '@/components/BaseInput.vue'
+import DropBaseInput from '@/components/DropBaseInput.vue'
 
 export default {
   components: {
-    BaseInput
+    DropBaseInput
   },
   data () {
     return {
