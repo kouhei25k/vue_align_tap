@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    @mouseup="baseClipDrop()"
+  >
     <div class="large-12 medium-12 small-12 cell">
       <label>タイトル
         <input
@@ -34,13 +37,7 @@
       </button>
     </div>
     <div class="base-image-field">
-      <DrawSquareInSVG
-        ref="drawsvg"
-        :pt1="pt1"
-        :pt2="pt2"
-        :nw="imgNaWidth"
-        :nh="imgNaHeight"
-      />
+      <BaseClip ref="drop" />
       <img
         v-show="url"
         id="base-img"
@@ -51,12 +48,12 @@
   </div>
 </template>
 <script>
-import DrawSquareInSVG from '@/components/DrawSquareInSVG.vue'
+import BaseClip from '@/components/BaseClip.vue'
 import axios from 'axios'
 export default {
   name: 'BaseInput',
   components: {
-    DrawSquareInSVG
+    BaseClip
   },
   data () {
     return {
@@ -106,6 +103,11 @@ export default {
     onFileChange (e) {
       this.file = e.target.files[0]
       this.url = URL.createObjectURL(this.file)
+    },
+
+    baseClipDrop () {
+      this.$refs.drop.drop()
+      this.$refs.drop.cDrop()
     }
   }
 }
@@ -119,5 +121,6 @@ export default {
 }
 img {
   width: 800px;
+  user-select:none;
 }
 </style>
