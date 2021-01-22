@@ -42,7 +42,7 @@ export default {
   methods: {
     signup () {
       const formData = new FormData()
-      const url = 'https://server-auto-settap.herokuapp.com//auth/registration/'
+      const url = 'https://server-auto-settap.herokuapp.com/auth/registration/'
 
       console.log(this.username)
 
