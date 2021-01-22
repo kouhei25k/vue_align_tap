@@ -24,7 +24,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://127.0.0.1:8000/api/base_image/')
+      .get('https://server-auto-settap.herokuapp.com/api/base_image/')
       .then(
         function (response) {
           console.log(response.data)

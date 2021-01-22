@@ -21,7 +21,7 @@ export default {
     logout () {
       this.$emit('LoggedIn', false)
       const formData = new FormData()
-      const url = 'http://127.0.0.1:8000/auth/logout/'
+      const url = 'https://server-auto-settap.herokuapp.com/auth/logout/'
       axios
         .post(url, formData, {
           headers: {

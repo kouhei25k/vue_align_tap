@@ -50,7 +50,7 @@ export default {
 
   mounted () {
     axios
-      .get('http://127.0.0.1:8000/api/image_group', {
+      .get('https://server-auto-settap.herokuapp.com/api/image_group', {
         headers: {
           Authorization: `token ${localStorage.token}`
         }

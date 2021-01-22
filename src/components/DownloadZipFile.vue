@@ -21,7 +21,7 @@ export default {
   },
   mounted () {
     axios
-      .get(`http://127.0.0.1:8000/api/${this.folder}`, {
+      .get(`https://server-auto-settap.herokuapp.com/api/${this.folder}`, {
         headers: {
           Authorization: `token ${localStorage.token}`
         }

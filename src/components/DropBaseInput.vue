@@ -96,7 +96,7 @@ export default {
     },
     submitFile () {
       const formData = new FormData()
-      const url = 'http://127.0.0.1:8000/api/base_image/'
+      const url = 'https://server-auto-settap.herokuapp.com/api/base_image/'
       // this.pt1 = this.pt1.split(',')
       // this.pt2 = this.pt2.split(',')
       formData.append('name', this.name)

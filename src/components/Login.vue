@@ -34,7 +34,7 @@ export default {
   methods: {
     login () {
       const formData = new FormData()
-      const url = 'http://127.0.0.1:8000/auth/login/'
+      const url = 'https://server-auto-settap.herokuapp.com/auth/login/'
       formData.append('username', this.username)
       formData.append('password', this.password)
       axios

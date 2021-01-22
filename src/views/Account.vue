@@ -64,7 +64,7 @@ export default {
   methods: {
     getUserInfo () {
       axios
-        .get('http://127.0.0.1:8000/auth/user/', {
+        .get('https://server-auto-settap.herokuapp.com/auth/user/', {
           headers: {
             Authorization: `token ${localStorage.token}`
           }

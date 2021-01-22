@@ -102,8 +102,8 @@ export default {
     },
     submitFile () {
       const formData = new FormData()
-      // const url = 'http://127.0.0.1:8000/api/create_processed_image/'
-      const url = 'http://127.0.0.1:8000/api/align/'
+      // const url = 'https://server-auto-settap.herokuapp.com/api/create_processed_image/'
+      const url = 'https://server-auto-settap.herokuapp.com/api/align/'
       for (var i = 0; i < this.files.length; i++) {
         formData.append('image', this.files[i])
       }
