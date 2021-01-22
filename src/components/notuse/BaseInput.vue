@@ -93,11 +93,11 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         })
-        .then(function () {
+        .then(() => {
           console.log('Success!!')
         })
-        .catch(function () {
-          console.log('Failed！')
+        .catch((error) => {
+          console.log(error)
         })
     },
     onFileChange (e) {

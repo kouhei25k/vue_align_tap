@@ -9,6 +9,9 @@
       </router-link> |
       <router-link to="/processed">
         processed
+      </router-link> |
+      <router-link to="/account">
+        account
       </router-link>
     </div>
     <router-view />

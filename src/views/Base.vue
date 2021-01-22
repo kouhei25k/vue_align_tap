@@ -31,7 +31,7 @@ export default {
           this.unprocessedImages = response.data
         }.bind(this)
       )
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error)
       })
   }

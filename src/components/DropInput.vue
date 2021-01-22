@@ -102,9 +102,9 @@ export default {
     },
     submitFile () {
       const formData = new FormData()
+      // const url = 'http://127.0.0.1:8000/api/create_processed_image/'
       const url = 'http://127.0.0.1:8000/api/align/'
       for (var i = 0; i < this.files.length; i++) {
-        console.log(this.files[i])
         formData.append('image', this.files[i])
       }
       formData.append('folder', this.folder)
@@ -112,14 +112,15 @@ export default {
       axios
         .post(url, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            Authorization: `token ${localStorage.token}`
           }
         })
-        .then(function () {
+        .then(() => {
           console.log('Success!!')
         })
-        .catch(function () {
-          console.log('Failed！')
+        .catch((error) => {
+          console.log(error)
         })
     }
   }

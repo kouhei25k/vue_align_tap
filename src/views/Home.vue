@@ -32,11 +32,15 @@ export default {
   },
   mounted () {
     axios
-      .get('http://127.0.0.1:8000/api/base_image/')
-      .then(function (response) {
+      .get('http://127.0.0.1:8000/api/base_image/', {
+        headers: {
+          Authorization: `token ${localStorage.token}`
+        }
+      })
+      .then((response) => {
         this.baseImagesName = response.data.map(value => value.name)
-      }.bind(this))
-      .catch(function (error) {
+      })
+      .catch((error) => {
         console.log(error)
       })
   },

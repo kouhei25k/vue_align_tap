@@ -21,8 +21,8 @@
         <label for="name">name</label>
         <input
           id="name"
+          v-model="name"
           type="text"
-          :value="name"
         >
         <p>{{ pt1 }},{{ pt2 }}</p>
         <button @click="submitFile()">
@@ -62,6 +62,7 @@ export default {
       pt2: '',
       imgNaWidth: '',
       imgNaHeight: '',
+      scaling: null,
       url: ''
     }
   },
@@ -79,7 +80,7 @@ export default {
         return
       }
       this.file = files[0]
-      this.name = this.file.name.split('.')[0]
+      // this.name = this.file.name.split('.')[0]
       this.url = URL.createObjectURL(this.file)
       this.isDroped = false
       this.isDroped = true
@@ -91,6 +92,7 @@ export default {
 
       this.imgNaWidth = nw
       this.imgNaHeight = nh
+      this.scaling = 800 / nw
     },
     submitFile () {
       const formData = new FormData()
@@ -101,17 +103,19 @@ export default {
       formData.append('image', this.file)
       formData.append('pt1', this.pt1)
       formData.append('pt2', this.pt2)
+
       axios
         .post(url, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            Authorization: `token ${localStorage.token}`
           }
         })
-        .then(function () {
+        .then(() => {
           console.log('Success!!')
         })
-        .catch(function () {
-          console.log('Failed！')
+        .catch((error) => {
+          console.log(error)
         })
     },
 
@@ -121,8 +125,8 @@ export default {
     },
     getClipPt (...value) {
       const [x, y, w, h] = value
-      this.pt1 = [x, y]
-      this.pt2 = [x + w, y + h]
+      this.pt1 = [Math.floor(x / this.scaling), Math.floor(y / this.scaling)]
+      this.pt2 = [Math.floor((x + w) / this.scaling), Math.floor((y + h) / this.scaling)]
     }
   }
 }

@@ -8,4 +8,4 @@ import VueAxios from 'vue-axios'
 
 // Vue.config.productionTip = false
 
-createApp(App).use(router, store, VueAxios, axios).mount('#app')
+createApp(App).use(router).use(VueAxios, axios).use(store).mount('#app')
