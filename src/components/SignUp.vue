@@ -10,7 +10,7 @@
     <div>
       <label for="">パスワード</label>
       <input
-        v-model="password"
+        v-model="password1"
         type="text"
       >
     </div>
