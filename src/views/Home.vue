@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <div>
-      <DropInput
-        :base="useBase"
-      />
       <SeletOptions
         :options="baseImagesName"
         @selected="selectedBase"
+      />
+      <DropInput
+        :base="useBase"
       />
     </div>
   </div>

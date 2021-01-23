@@ -2,15 +2,38 @@
   <div class="drop_container">
     <div v-if="isDroped">
       <div>
-        <div
-          v-for="file in files"
-          :key="file.name"
-        >
-          <p>{{ file.name }}</p>
+        <div class="droped_area">
+          <div
+            v-show="folder"
+            class="folder"
+          >
+            <img
+              src="@/assets/folder_icon.png"
+              class="folder-icon"
+            >
+            <span>{{ folder }}</span>
+          </div>
+          <div class="image-list">
+            <div
+              v-for="file in files"
+              :key="file.name"
+              class="image-name"
+            >
+              <img
+                src="@/assets/image_icon.png"
+                class="image-icon"
+              ><span>{{
+                file.name
+              }}</span>
+            </div>
+          </div>
         </div>
-        <button @click="submitFile()">
-          Submit
-        </button>
+        <div
+          class="button"
+          @click="submitFile()"
+        >
+          画像を揃える
+        </div>
       </div>
     </div>
     <div
@@ -44,7 +67,7 @@ export default {
       isEnter: false,
       isDroped: false,
       folder: null,
-      files: null,
+      files: [],
       url: null
     }
   },
@@ -56,71 +79,73 @@ export default {
       this.isEnter = false
     },
     dropFile () {
-      // this.files = event.dataTransfer.files
       var items = event.dataTransfer.items
-      const files = []
 
       for (var i = 0; i < items.length; i++) {
-        var item = items[i].webkitGetAsEntry() // Might be renamed to GetAsEntry() in 2020
+        var item = items[i].webkitGetAsEntry()
         if (item) {
           if (item.isFile) {
-            item.file(function (file) {
-              files.push(file)
+            item.file(file => {
+              this.files.push(file)
             })
           } else if (item.isDirectory) {
             console.log(item.fullPath)
-            var folderName = item.fullPath // console.log(item.name)
-            // Get folder contents
+            var folderName = item.fullPath.substr(1)
             var dirReader = item.createReader()
-            dirReader.readEntries(function (entries) {
+            dirReader.readEntries(entries => {
               for (var i = 0; i < entries.length; i++) {
-                // this.getFileTree(entries[i], item.name + '/')
-                if (entries[i].isFile) {
-                  entries[i].file(function (file) {
-                    console.log(file.name)
-                    files.push(file)
-                  })
-                }
+                this.getFileTree(entries[i], item.name + '/')
+                // if (entries[i].isFile) {
+                //   entries[i].file((file) => {
+                //     console.log(file.name)
+                //     files.push(file)
+                //   })
+                // }
               }
             })
           }
         }
       }
-      this.files = files
       this.folder = folderName
       this.isDroped = false
       this.isDroped = true
     },
     getFileTree: function (item, path) {
       if (item.isFile) {
-        item.file(function (file) {
+        item.file(file => {
           console.log(file)
           this.files.push(file)
         })
       }
     },
     submitFile () {
-      const formData = new FormData()
-      // const url = '${this.API_URL}/api/create_processed_image/'
-      const url = `${this.API_URL}/api/align/`
-      for (var i = 0; i < this.files.length; i++) {
-        formData.append('image', this.files[i])
+      if (!this.base) {
+        alert('使用するベース画像を選択してください')
+      } else {
+        const formData = new FormData()
+        const url = `${this.API_URL}/api/align/`
+        for (var i = 0; i < this.files.length; i++) {
+          formData.append('image', this.files[i])
+        }
+        formData.append('folder', this.folder)
+        formData.append('base', this.base)
+        axios
+          .post(url, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `token ${localStorage.token}`
+            }
+          })
+          .then(() => {
+            console.log('Success!!')
+            this.$router.push('/processed')
+          })
+          .catch(error => {
+            console.log(error)
+            alert('ファイルを送信出来ませんでした。')
+            this.isDroped = false
+          })
       }
-      formData.append('folder', this.folder)
-      formData.append('base', this.base)
-      axios
-        .post(url, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `token ${localStorage.token}`
-          }
-        })
-        .then(() => {
-          console.log('Success!!')
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     }
   }
 }
@@ -133,24 +158,77 @@ export default {
   align-items: center;
 }
 .drop_area {
-  color: gray;
+  color: #505050;
   font-weight: bold;
-  font-size: 1.2em;
   display: flex;
+  font-size: 1.2em;
   justify-content: center;
   align-items: center;
   width: 500px;
   height: 300px;
-  border: 5px solid gray;
-  border-radius: 15px;
+  border: 5px solid #505050;
+  border-radius: 10px;
+}
+.droped_area {
+  color: #505050;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 500px;
+  height: 300px;
+  border: 3px solid #505050;
+  position: relative;
+  border-radius: 10px;
 }
 
 .enter {
   border: 10px dotted powderblue;
 }
-
-img {
-  width: 800px;
-  user-select: none;
+.folder {
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  top: 30px;
+  left: 50px;
+  .folder-icon {
+    width: 36px;
+    margin-right: 3px;
+    vertical-align: middle;
+  }
+  span {
+    font-size: 24px;
+    line-height: 36px;
+    vertical-align: middle;
+  }
+}
+.image-list {
+  position: absolute;
+  margin: 10px;
+  top: 60px;
+  left: 70px;
+  .image-name {
+    margin-bottom: 3px;
+    span {
+      line-height: 24px;
+      vertical-align: middle;
+    }
+    .image-icon {
+      width: 24px;
+      margin-right: 3px;
+      vertical-align: middle;
+    }
+  }
+}
+.button {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #42b983;
+  border: 2px solid #42b983;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  &:hover {
+    color: #fff;
+    background:#42b983;
+  }
 }
 </style>

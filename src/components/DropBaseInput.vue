@@ -140,7 +140,7 @@ export default {
   align-items: center;
 }
 .drop_area {
-  color: gray;
+  color: #505050;
   font-weight: bold;
   font-size: 1.2em;
   display: flex;
@@ -148,7 +148,7 @@ export default {
   align-items: center;
   width: 500px;
   height: 300px;
-  border: 5px solid gray;
+  border: 5px solid #505050;
   border-radius: 15px;
 }
 
