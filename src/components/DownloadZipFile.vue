@@ -13,6 +13,7 @@ import { saveAs } from 'file-saver'
 
 export default {
   name: 'DownlodZipFileVue',
+  inject: ['API_URL'],
   props: { folder: String },
   data () {
     return {
@@ -21,7 +22,7 @@ export default {
   },
   mounted () {
     axios
-      .get(`https://server-auto-settap.herokuapp.com/api/${this.folder}`, {
+      .get(`${this.API_URL}/api/${this.folder}`, {
         headers: {
           Authorization: `token ${localStorage.token}`
         }

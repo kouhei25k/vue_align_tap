@@ -24,6 +24,7 @@ export default {
     DropInput,
     SeletOptions
   },
+  inject: ['API_URL'],
   data () {
     return {
       baseImagesName: [],
@@ -31,8 +32,9 @@ export default {
     }
   },
   mounted () {
+    console.log(this.API_URL)
     axios
-      .get('https://server-auto-settap.herokuapp.com/api/base_image/', {
+      .get(`${this.API_URL}/api/base_image/`, {
         headers: {
           Authorization: `token ${localStorage.token}`
         }

@@ -10,6 +10,7 @@
 import axios from 'axios'
 export default {
   name: 'Logout',
+  inject: ['API_URL'],
   data () {
     return {
       username: '',
@@ -21,7 +22,7 @@ export default {
     logout () {
       this.$emit('LoggedIn', false)
       const formData = new FormData()
-      const url = 'https://server-auto-settap.herokuapp.com/auth/logout/'
+      const url = `${this.API_URL}/auth/logout/`
       axios
         .post(url, formData, {
           headers: {

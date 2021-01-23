@@ -24,6 +24,7 @@
 import axios from 'axios'
 export default {
   name: 'Login',
+  inject: ['API_URL'],
   data () {
     return {
       username: '',
@@ -34,7 +35,7 @@ export default {
   methods: {
     login () {
       const formData = new FormData()
-      const url = 'https://server-auto-settap.herokuapp.com/auth/login/'
+      const url = `${this.API_URL}/auth/login/`
       formData.append('username', this.username)
       formData.append('password', this.password)
       axios

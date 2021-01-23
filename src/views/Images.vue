@@ -22,6 +22,7 @@ import axios from 'axios'
 // import DrawSquareInSVG from '@/components/DrawSquareInSVG.vue'
 
 export default {
+  inject: ['API_URL'],
   data () {
     return {
       processedImages: null,
@@ -36,7 +37,7 @@ export default {
   },
   mounted () {
     axios
-      .get(`https://server-auto-settap.herokuapp.com/api/${this.$route.params.group}`, {
+      .get(`${this.API_URL}/api/${this.$route.params.group}`, {
         headers: {
           Authorization: `token ${localStorage.token}`
         }

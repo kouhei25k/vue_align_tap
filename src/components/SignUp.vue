@@ -31,6 +31,7 @@
 import axios from 'axios'
 export default {
   name: 'Login',
+  inject: ['API_URL'],
   data () {
     return {
       username: '',
@@ -42,7 +43,7 @@ export default {
   methods: {
     signup () {
       const formData = new FormData()
-      const url = 'https://server-auto-settap.herokuapp.com/auth/registration/'
+      const url = `${this.API_URL}/auth/registration/`
 
       console.log(this.username)
 

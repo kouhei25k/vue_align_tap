@@ -52,6 +52,7 @@
 
 <script>
 export default {
+  inject: ['API_URL'],
   data () {
     return {
       // setting for Rect object

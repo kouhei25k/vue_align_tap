@@ -52,6 +52,7 @@ export default {
   components: {
     BaseClip
   },
+  inject: ['API_URL'],
   data () {
     return {
       isEnter: false,
@@ -96,7 +97,7 @@ export default {
     },
     submitFile () {
       const formData = new FormData()
-      const url = 'https://server-auto-settap.herokuapp.com/api/base_image/'
+      const url = `${this.API_URL}/api/base_image/`
       // this.pt1 = this.pt1.split(',')
       // this.pt2 = this.pt2.split(',')
       formData.append('name', this.name)

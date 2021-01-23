@@ -32,6 +32,7 @@ export default {
   components: {
     DownloadZipFile
   },
+  inject: ['API_URL'],
   data () {
     return {
       processedImages: null,
@@ -50,7 +51,7 @@ export default {
 
   mounted () {
     axios
-      .get('https://server-auto-settap.herokuapp.com/api/image_group', {
+      .get(`${this.API_URL}/api/image_group`, {
         headers: {
           Authorization: `token ${localStorage.token}`
         }

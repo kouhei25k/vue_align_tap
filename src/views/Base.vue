@@ -16,6 +16,7 @@ export default {
   components: {
     DropBaseInput
   },
+  inject: ['API_URL'],
   data () {
     return {
       base: null,
@@ -24,7 +25,7 @@ export default {
   },
   mounted () {
     axios
-      .get('https://server-auto-settap.herokuapp.com/api/base_image/')
+      .get(`${this.API_URL}/api/base_image/`)
       .then(
         function (response) {
           console.log(response.data)

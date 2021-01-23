@@ -1,18 +1,17 @@
 <template>
   <div class="drop_container">
     <div v-if="isDroped">
-      <!-- <img
-        v-show="url"
-        id="base-img"
-        :src="url"
-        @load="getImgSize"
-      > -->
       <div>
-        <ul id="listing" />
+        <div
+          v-for="file in files"
+          :key="file.name"
+        >
+          <p>{{ file.name }}</p>
+        </div>
+        <button @click="submitFile()">
+          Submit
+        </button>
       </div>
-      <button @click="submitFile()">
-        Submit
-      </button>
     </div>
     <div
       v-else
@@ -33,6 +32,7 @@
 import axios from 'axios'
 export default {
   name: 'DropInput',
+  inject: ['API_URL'],
   props: {
     base: {
       type: String,
@@ -65,7 +65,6 @@ export default {
         if (item) {
           if (item.isFile) {
             item.file(function (file) {
-              console.log(file)
               files.push(file)
             })
           } else if (item.isDirectory) {
@@ -78,7 +77,7 @@ export default {
                 // this.getFileTree(entries[i], item.name + '/')
                 if (entries[i].isFile) {
                   entries[i].file(function (file) {
-                    console.log(file)
+                    console.log(file.name)
                     files.push(file)
                   })
                 }
@@ -102,8 +101,8 @@ export default {
     },
     submitFile () {
       const formData = new FormData()
-      // const url = 'https://server-auto-settap.herokuapp.com/api/create_processed_image/'
-      const url = 'https://server-auto-settap.herokuapp.com/api/align/'
+      // const url = '${this.API_URL}/api/create_processed_image/'
+      const url = `${this.API_URL}/api/align/`
       for (var i = 0; i < this.files.length; i++) {
         formData.append('image', this.files[i])
       }

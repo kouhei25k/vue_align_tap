@@ -40,6 +40,7 @@ export default {
     SignUp,
     Logout
   },
+  inject: ['API_URL'],
   data () {
     return {
       isAuth: null,
@@ -54,6 +55,7 @@ export default {
   },
 
   mounted () {
+    console.log(this.API_URL)
     if (localStorage.token) {
       this.isAuth = true
       this.getUserInfo()
@@ -64,7 +66,7 @@ export default {
   methods: {
     getUserInfo () {
       axios
-        .get('https://server-auto-settap.herokuapp.com/auth/user/', {
+        .get(`${this.API_URL}/auth/user/`, {
           headers: {
             Authorization: `token ${localStorage.token}`
           }
