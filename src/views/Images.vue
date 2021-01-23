@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <p>processed_image</p>
-    <div
-      v-for="processed_image in processedImages"
-      :key="processed_image.name"
-    >
-      <p>{{ processed_image.base }}</p>
-      <img
-        :src="processed_image.image"
-        alt=""
+  <div class="images-container">
+    <h3>{{ $route.params.group }}</h3>
+    <div class="images">
+      <div
+        v-for="processed_image in processedImages"
+        :key="processed_image.name"
+        class="image"
       >
-    </div>
-    <div>
-      <!-- <DrawSquareInSVG :pt1="pt1" :pt2=pt2 /> -->
+        <img
+          :src="processed_image.image"
+          alt=""
+        >
+        <p>{{ getImageName(processed_image.image) }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -27,12 +27,18 @@ export default {
     return {
       processedImages: null,
       img_group: null,
-      img: null
+      img_name: null
     }
   },
   computed: {
     groupName () {
       return this.$route.params.group
+    },
+    getImageName () {
+      return function (imageUrl) {
+        const imageName = imageUrl.split('/').pop()
+        return imageName
+      }
     }
   },
   mounted () {
@@ -42,10 +48,10 @@ export default {
           Authorization: `token ${localStorage.token}`
         }
       })
-      .then((response) => {
+      .then(response => {
         this.processedImages = response.data
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error)
       })
   }
@@ -53,7 +59,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img{
-    width: 800px;
+.images-container {
+  .images {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    .image {
+      margin: 20px;
+      img {
+        width: 300px;
+      }
+    }
+  }
 }
 </style>

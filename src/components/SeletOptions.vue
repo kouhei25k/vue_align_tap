@@ -48,7 +48,6 @@ export default {
   select {
     width: 300px;
     padding: 8px 38px 8px 8px;
-    color: #666666;
   }
 }
 </style>

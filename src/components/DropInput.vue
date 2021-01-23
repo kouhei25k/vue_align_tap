@@ -91,6 +91,7 @@ export default {
           } else if (item.isDirectory) {
             console.log(item.fullPath)
             var folderName = item.fullPath.substr(1)
+
             var dirReader = item.createReader()
             dirReader.readEntries(entries => {
               for (var i = 0; i < entries.length; i++) {

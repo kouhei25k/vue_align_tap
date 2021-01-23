@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <button @click="logout">
-      Logout
-    </button>
+  <div
+    class="button-gray"
+    @click="logout"
+  >
+    Logout
   </div>
 </template>
 
@@ -41,6 +42,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style  lang="scss" scoped>
+.button-gray {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  color:  #929292;
+  border: 2px solid #929292;
+  border-radius: 5px;
+  background: #fff;
+  padding: 5px;
+  width: 360px;
+  box-sizing: border-box;
+  &:hover {
+    color: #fff;
+    background:  #929292;
+  }
+}
 </style>

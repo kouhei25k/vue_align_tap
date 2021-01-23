@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p>base_image</p>
     <div>
-      <!-- <BaseInput /> -->
       <DropBaseInput />
     </div>
   </div>
@@ -25,7 +23,11 @@ export default {
   },
   mounted () {
     axios
-      .get(`${this.API_URL}/api/base_image/`)
+      .get(`${this.API_URL}/api/base_image/`, {
+        headers: {
+          Authorization: `token ${localStorage.token}`
+        }
+      })
       .then(
         function (response) {
           console.log(response.data)

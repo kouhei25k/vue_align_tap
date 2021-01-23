@@ -1,26 +1,32 @@
 <template>
   <div>
     <div v-if="isAuth">
-      <p>{{ userInfo.username }}</p>
+      <p>こんにちは {{ userInfo.username }} さん</p>
       <Logout @LoggedIn="catchIsLoggedIn" />
     </div>
     <div v-else>
       <div v-if="isShowLoginFrom">
         <Login @LoggedIn="catchIsLoggedIn" />
-        <div>
+        <div class="other-option">
           <p>アカウントをお持ちでない方は</p>
-          <button @click="showSignupFrom">
+          <div
+            class="button-gray"
+            @click="showSignupFrom"
+          >
             アカウントを作成する
-          </button>
+          </div>
         </div>
       </div>
       <div v-else>
-        <SignUp />
-        <div>
+        <SignUp @signup="showLoginFrom" />
+        <div class="other-option">
           <p>すでにアカウントをお持ちの方は</p>
-          <button @click="showLoginFrom">
+          <div
+            class="button-gray"
+            @click="showLoginFrom"
+          >
             ログイン
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -71,10 +77,10 @@ export default {
             Authorization: `token ${localStorage.token}`
           }
         })
-        .then((response) => {
+        .then(response => {
           this.userInfo = response.data
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error)
         })
     },
@@ -94,6 +100,27 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.other-option{
+  margin-top: 20px;
+  p{
+    margin-bottom: 10px;
+  }
+}
+.button-gray {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  color:  #929292;
+  border: 2px solid #929292;
+  border-radius: 5px;
+  background: #fff;
+  padding: 5px;
+  width: 360px;
+  box-sizing: border-box;
+  &:hover {
+    color: #fff;
+    background:  #929292;
+  }
+}
 </style>

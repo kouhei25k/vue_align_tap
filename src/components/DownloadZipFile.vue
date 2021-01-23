@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <button @click="downloadZipFile">
-      Download
-    </button>
-  </div>
+  <span @click="downloadZipFile">ダウンロード</span>
 </template>
 
 <script>
