@@ -7,7 +7,7 @@
       <div
         v-for="processed_group in processedGroups"
         :key="processed_group.name"
-        @click.right.prevent="onRightClick"
+        @click.right.prevent="onRightClick($event,processed_group.name)"
       >
         <a
           :href="`processed/${processed_group.name}`"

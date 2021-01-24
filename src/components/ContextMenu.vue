@@ -1,11 +1,17 @@
 <template>
   <div class="context-menu">
-    <div class="menu-item">
+    <div
+      class="menu-item"
+      @click="startDownload"
+    >
       <img
         src="@/assets/save_icon.png"
         class="save-icon"
       >
-      <DownloadZipFile :folder="item" />
+      <DownloadZipFile
+        ref="download"
+        :folder="item"
+      />
     </div>
     <div
       class="menu-item"
@@ -38,6 +44,9 @@ export default {
   methods: {
     onDelete () {
       alert('削除はまだ未実装（；´д｀ ）')
+    },
+    startDownload () {
+      this.$refs.download.downloadZipFile()
     }
   }
 }
